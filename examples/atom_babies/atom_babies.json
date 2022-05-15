@@ -1,0 +1,148 @@
+{
+  "category": "ATOM_Babies",
+  "color": "#115f07",
+  "blocks": [
+    {
+      "name": "init_atom_babies",
+      "type": "execute",
+      "params": [
+        { "name": "ATOM Babiesを初期化する", "type": "label" },
+        { "name": "_eye_color", "type": "variable" },
+        { "name": "_cheek_color", "type": "variable" },
+        { "name": "_background_color", "type": "variable" }
+      ]
+    },
+    {
+      "name": "rgb",
+      "type": "value",
+      "params": [
+        { "name": "色を指定する", "type": "label" },
+        { "name": "_r", "type": "number" },
+        { "name": "_g", "type": "number" },
+        { "name": "_b", "type": "number" }
+      ]
+    },
+    {
+      "name": "show_face",
+      "type": "execute",
+      "params": [{ "name": "顔を表示する", "type": "label" }]
+    },
+    {
+      "name": "fill_face",
+      "type": "execute",
+      "params": [
+        { "name": "顔を塗りつぶす", "type": "label" },
+        { "name": "_color", "type": "variable" }
+      ]
+    },
+    {
+      "name": "clear_face",
+      "type": "execute",
+      "params": [{ "name": "顔を消す", "type": "label" }]
+    },
+    {
+      "name": "set_orientation_normal",
+      "type": "execute",
+      "params": [{ "name": "顔の向きを通常にする", "type": "label" }]
+    },
+    {
+      "name": "set_orientation_right",
+      "type": "execute",
+      "params": [{ "name": "顔の向きを右にする", "type": "label" }]
+    },
+    {
+      "name": "set_orientation_upside_down",
+      "type": "execute",
+      "params": [{ "name": "顔の向きを逆にする", "type": "label" }]
+    },
+    {
+      "name": "set_orientation_left",
+      "type": "execute",
+      "params": [{ "name": "顔の向きを左にする", "type": "label" }]
+    },
+    {
+      "name": "set_face_position_normal",
+      "type": "execute",
+      "params": [{ "name": "顔の位置を通常にする", "type": "label" }]
+    },
+    {
+      "name": "set_face_position_right",
+      "type": "execute",
+      "params": [{ "name": "顔の位置を右にする", "type": "label" }]
+    },
+    {
+      "name": "set_face_position_down",
+      "type": "execute",
+      "params": [{ "name": "顔の位置を下にする", "type": "label" }]
+    },
+    {
+      "name": "set_face_position_left",
+      "type": "execute",
+      "params": [{ "name": "顔の位置を左にする", "type": "label" }]
+    },
+    {
+      "name": "set_face_position_up",
+      "type": "execute",
+      "params": [{ "name": "顔の位置を上にする", "type": "label" }]
+    },
+    {
+      "name": "set_face_position_top",
+      "type": "execute",
+      "params": [{ "name": "顔の位置を真上にする", "type": "label" }]
+    },
+    {
+      "name": "set_face_position_bottom",
+      "type": "execute",
+      "params": [{ "name": "顔の位置を真下にする", "type": "label" }]
+    },
+    {
+      "name": "open_eyes",
+      "type": "execute",
+      "params": [{ "name": "目を開ける", "type": "label" }]
+    },
+    {
+      "name": "close_eyes",
+      "type": "execute",
+      "params": [{ "name": "目を閉じる", "type": "label" }]
+    },
+    {
+      "name": "show_cheeks",
+      "type": "execute",
+      "params": [{ "name": "ほっぺを表示する", "type": "label" }]
+    },
+    {
+      "name": "clear_cheeks",
+      "type": "execute",
+      "params": [{ "name": "ほっぺを消す", "type": "label" }]
+    },
+    {
+      "name": "start_blink",
+      "type": "execute",
+      "params": [{ "name": "まばたきを始める", "type": "label" }]
+    },
+    {
+      "name": "stop_blink",
+      "type": "execute",
+      "params": [{ "name": "まばたきを止める", "type": "label" }]
+    },
+    {
+      "name": "start_blink_with_function",
+      "type": "execute",
+      "params": [
+        { "name": "まばたきを始める", "type": "label" },
+        { "name": "_interval_function_name", "type": "variable" }
+      ]
+    },
+    {
+      "name": "get_blink_interval_values",
+      "type": "value",
+      "params": [
+        { "name": "まばたきの設定値", "type": "label" },
+        { "name": "_loop", "type": "variable" },
+        { "name": "_open", "type": "variable" },
+        { "name": "_close", "type": "variable" },
+        { "name": "_interval", "type": "variable" }
+      ]
+    }
+  ]
+}

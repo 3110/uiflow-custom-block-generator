@@ -1,0 +1,38 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/.venv",
+    "python.languageServer": "None",
+    "python.linting.pylintEnabled": false,
+    "python.linting.lintOnSave": true,
+    "python.linting.flake8Args": [
+        "--max-line-length",
+        "119",
+        "--ignore=E203,W503,W504,E999"
+    ],
+    "python.linting.flake8Enabled": true,
+    "python.formatting.blackPath": "black",
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=119",
+        "--skip-string-normalization"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": null,
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": false,
+        "editor.formatOnSaveMode": "file",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+    },
+    "cSpell.words": [
+        "blockly",
+        "jscode",
+        "noqa",
+        "pylance",
+        "pyenv",
+        "pipenv",
+        "setx",
+        "venv",
+        "uiflow"
+    ],
+}
