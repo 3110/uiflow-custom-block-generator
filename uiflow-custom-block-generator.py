@@ -23,7 +23,7 @@ KEY_BLOCKS = "blocks"
 KEY_CATEGORY = "category"
 KEY_CODE = "code"
 KEY_COLOR = "color"
-KEY_COLOUR = "colour" # for m5b
+KEY_COLOUR = "colour"  # for m5b
 KEY_JSCODE = "jscode"
 KEY_MESSAGE = "message"
 KEY_NAME = "name"
@@ -45,7 +45,7 @@ BLOCK_PARAM_TYPES = [
     BLOCK_PARAM_TYPE_LABEL,
     BLOCK_PARAM_TYPE_STRING,
     BLOCK_PARAM_TYPE_NUMBER,
-    BLOCK_PARAM_TYPE_VARIABLE
+    BLOCK_PARAM_TYPE_VARIABLE,
 ]
 
 BLOCK_TYPE_VALUE = VALUE
@@ -63,14 +63,16 @@ BLOCK_TYPE_PARAMS = {
     BLOCK_TYPE_EXECUTE: {
         KEY_PREVIOUS_STATEMENT: None,
         KEY_NEXT_STATEMENT: None,
-    }
+    },
 }
 
 TEMPLATE_FILENAME = "{root}.{ext}"
 
 TEMPLATE_BLOCK_COMMENT = "// Block {block_name}"
 
-TEMPLATE_BLOCK_CODE_VARIABLE = "var {var_name} = Blockly.Python.valueToCode(block, '{var_name}', Blockly.Python.ORDER_NONE);"
+TEMPLATE_BLOCK_CODE_VARIABLE = (
+    "var {var_name} = Blockly.Python.valueToCode(block, '{var_name}', Blockly.Python.ORDER_NONE);"
+)
 TEMPLATE_BLOCK_CODE_FIELD_VALUE = "var {var_name} = block.getFieldValue('{var_name}');"
 
 TEMPLATE_BLOCK_JSON_CODE = "var {block_name}_json = {json};"
@@ -90,8 +92,9 @@ TEMPLATE_BLOCK_CODE = {
     BLOCK_TYPE_EXECUTE: '''window['Blockly'].Python['{block_name}'] = function(block) {{
     {vars}return `{python_code}`
 }};
-'''
+''',
 }
+
 
 def get_logger(name, level):
     logger = logging.getLogger(name)
@@ -103,57 +106,48 @@ def get_logger(name, level):
     logger.addHandler(sh)
     return logger
 
+
 def to_camel(s):
     w = re.split(r"[\s_-]", s.lower())
     return "".join([v if p == 0 else v.capitalize() for p, v in enumerate(w)])
 
+
 def validate_argument(arg, t):
     if not isinstance(arg, t):
-        raise UiFlowCustomBlockGeneratorError(
-            "Illegal Argument: expected: {}, actual: {}".format(type(t), type(arg)));
+        raise UiFlowCustomBlockGeneratorError("Illegal Argument: expected: {}, actual: {}".format(type(t), type(arg)))
+
 
 def validate_required_keys(target, required_keys, where):
     for k in required_keys:
         if k not in target.keys():
             raise MissingRequiredKey(k, where)
 
+
 class UiFlowCustomBlockGeneratorError(Exception):
     pass
+
 
 class MissingRequiredKey(UiFlowCustomBlockGeneratorError):
     def __init__(self, key, where):
         super().__init__(f"{key} in {where}")
 
+
 class LabelParameterGenerator:
     def generate_args(self, pos, name):
-        return {
-            f"{KEY_MESSAGE}{pos}": "%1",
-            f"{KEY_ARGS}{pos}": [
-                {
-                    KEY_TYPE: FIELD_LABEL,
-                    KEY_TEXT: str(name)
-                }
-            ]
-        }
+        return {f"{KEY_MESSAGE}{pos}": "%1", f"{KEY_ARGS}{pos}": [{KEY_TYPE: FIELD_LABEL, KEY_TEXT: str(name)}]}
 
     def generate_vars(self, name):
         return ""
+
 
 class StringParameterGenerator:
     def generate_args(self, pos, name):
         return {
             f"{KEY_MESSAGE}{pos}": "%1 %2",
             f"{KEY_ARGS}{pos}": [
-                {
-                    KEY_TYPE: FIELD_LABEL,
-                    KEY_TEXT: str(name)
-                },
-                {
-                    KEY_TYPE: FIELD_INPUT,
-                    KEY_TEXT: "",
-                    KEY_SPELL_CHECK: False, KEY_NAME: str(name)
-                }
-            ]
+                {KEY_TYPE: FIELD_LABEL, KEY_TEXT: str(name)},
+                {KEY_TYPE: FIELD_INPUT, KEY_TEXT: "", KEY_SPELL_CHECK: False, KEY_NAME: str(name)},
+            ],
         }
 
     def generate_vars(self, name):
@@ -165,16 +159,9 @@ class NumberParameterGenerator:
         return {
             f"{KEY_MESSAGE}{pos}": "%1 %2",
             f"{KEY_ARGS}{pos}": [
-                {
-                    KEY_TYPE: FIELD_LABEL,
-                    KEY_TEXT: str(name)
-                },
-                {
-                    KEY_TYPE: FIELD_NUMBER,
-                    KEY_VALUE: 0,
-                    KEY_NAME: str(name)
-                }
-            ]
+                {KEY_TYPE: FIELD_LABEL, KEY_TEXT: str(name)},
+                {KEY_TYPE: FIELD_NUMBER, KEY_VALUE: 0, KEY_NAME: str(name)},
+            ],
         }
 
     def generate_vars(self, name):
@@ -186,15 +173,9 @@ class VariableParameterGenerator:
         return {
             f"{KEY_MESSAGE}{pos}": "%1 %2",
             f"{KEY_ARGS}{pos}": [
-                {
-                    KEY_TYPE: FIELD_LABEL,
-                    KEY_TEXT: str(name)
-                },
-                {
-                    KEY_TYPE: INPUT_VALUE,
-                    KEY_NAME: name
-                }
-            ]
+                {KEY_TYPE: FIELD_LABEL, KEY_TEXT: str(name)},
+                {KEY_TYPE: INPUT_VALUE, KEY_NAME: name},
+            ],
         }
 
     def generate_vars(self, name):
@@ -207,7 +188,7 @@ class ParameterGenerator:
             BLOCK_PARAM_TYPE_LABEL: LabelParameterGenerator(),
             BLOCK_PARAM_TYPE_STRING: StringParameterGenerator(),
             BLOCK_PARAM_TYPE_NUMBER: NumberParameterGenerator(),
-            BLOCK_PARAM_TYPE_VARIABLE: VariableParameterGenerator()
+            BLOCK_PARAM_TYPE_VARIABLE: VariableParameterGenerator(),
         }
 
     def generate_args(self, params):
@@ -219,6 +200,7 @@ class ParameterGenerator:
     def generate_vars(self, params):
         return [self.generators[p[KEY_TYPE]].generate_vars(p[KEY_NAME]) for p in params]
 
+
 class BlockGenerator:
     def __init__(self, base_dir, logger=None):
         self.logger = logger
@@ -228,7 +210,11 @@ class BlockGenerator:
     def validate_parameter_types(self, block_name, params):
         for pos, p in enumerate(params):
             if not p[KEY_TYPE] in BLOCK_PARAM_TYPES:
-                raise UiFlowCustomBlockGeneratorError("Illegal Parameter Type: {type} (#{pos} parameter in the block \"{name}\")".format(type=p[KEY_TYPE], pos=pos + 1, name=block_name))
+                raise UiFlowCustomBlockGeneratorError(
+                    "Illegal Parameter Type: {type} (#{pos} parameter in the block \"{name}\")".format(
+                        type=p[KEY_TYPE], pos=pos + 1, name=block_name
+                    )
+                )
 
     def validate(self, block):
         validate_argument(block, dict)
@@ -255,21 +241,25 @@ class BlockGenerator:
         vs = self.param_generator.generate_vars(params)
         result = [
             TEMPLATE_BLOCK_COMMENT.format(block_name=block_name),
-            TEMPLATE_BLOCK_JSON_CODE.format(block_name=block_name,
-                json=json.dumps(args, ensure_ascii=False, indent=DEFAULT_PYTHON_CODE_INDENT)),
+            TEMPLATE_BLOCK_JSON_CODE.format(
+                block_name=block_name, json=json.dumps(args, ensure_ascii=False, indent=DEFAULT_PYTHON_CODE_INDENT)
+            ),
             TEMPLATE_BLOCK_DEFINITION.format(block_name=block_name),
-            TEMPLATE_BLOCK_CODE[block[KEY_TYPE]].format(block_name=block_name,
-                vars="".join([v + "\n" for v in vs]), python_code=self.load(name))
+            TEMPLATE_BLOCK_CODE[block[KEY_TYPE]].format(
+                block_name=block_name, vars="".join([v + "\n" for v in vs]), python_code=self.load(name)
+            ),
         ]
-        return result;
+        return result
+
 
 class UiFlowCustomBlockGenerator:
-    def __init__(self, config, logger=None):
+    def __init__(self, config, target_dir=None, logger=None):
         self.logger = logger
         with config:
             self.config = json.load(config)
             validate_required_keys(self.config, BLOCK_SETTING_REQUIRED_KEYS, "setting")
-        self.base_dir = os.path.join(os.getcwd(), os.path.dirname(config.name))
+        self.base_dir = os.path.abspath(os.path.dirname(config.name))
+        self.target_dir = os.path.abspath(target_dir) if target_dir else self.base_dir
         self.filename = os.path.splitext(os.path.basename(config.name))[0]
         self.block_generator = BlockGenerator(self.base_dir, logger)
 
@@ -278,22 +268,20 @@ class UiFlowCustomBlockGenerator:
         color = self.config[KEY_COLOR]
         m5b = {KEY_CATEGORY: category, KEY_COLOR: color, KEY_BLOCKS: [], KEY_JSCODE: ""}
         for block in self.config[KEY_BLOCKS]:
-            m5b[KEY_BLOCKS].append(BLOCK_NAME_FORMAT.format(category=category,
-                name=to_camel(block[KEY_NAME])))
+            m5b[KEY_BLOCKS].append(BLOCK_NAME_FORMAT.format(category=category, name=to_camel(block[KEY_NAME])))
             m5b[KEY_JSCODE] += "\n".join(self.block_generator.generate(category, color, block))
         self.dump(m5b)
 
-
     def dump(self, data, encoding=DEFAULT_ENCODING):
-        file_path = os.path.normpath(os.path.join(self.base_dir,
-            TEMPLATE_FILENAME.format(root=self.filename, ext=EXT_M5B)))
+        file_path = os.path.normpath(
+            os.path.join(self.target_dir, TEMPLATE_FILENAME.format(root=self.filename, ext=EXT_M5B))
+        )
         with open(file_path, "w", encoding=encoding) as f:
             json.dump(data, f, ensure_ascii=False)
 
 
 if __name__ == '__main__':
     import argparse
-    import sys
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -302,10 +290,11 @@ if __name__ == '__main__':
         type=argparse.FileType("r", encoding=DEFAULT_ENCODING),
         help="カスタムブロック定義ファイル（JSON）",
     )
-    parser.add_argument("--debug","-d", action="store_true", help="デバッグ表示")
+    parser.add_argument("--target-dir", "-t", help="出力先ディレクトリ")
+    parser.add_argument("--debug", "-d", action="store_true", help="デバッグ表示")
     args = parser.parse_args()
 
     log_level = logging.DEBUG if args.debug else logging.INFO
     logger = get_logger(__name__, log_level)
-    generator = UiFlowCustomBlockGenerator(args.config[0], logger)
+    generator = UiFlowCustomBlockGenerator(args.config[0], target_dir=args.target_dir, logger=logger)
     generator.generate()
