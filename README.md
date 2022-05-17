@@ -100,10 +100,16 @@ pipenv install --dev
 
 ## 実行方法
 
-以下を実行すると，設定用 JSON と同じディレクトリに`atom_babies.m5b`が生成されます。
+以下を実行すると，設定用 JSON と同じディレクトリに`atom_babies.m5b`を生成します。
 
 ```bash
 pipenv run python uiflow-custom-block-generator.py examples/atom_babies/atom_babies.json
+```
+
+`--target_dir`（`-t`）オプションで M5B ファイルの出力先ディレクトリを変更できます。以下の例の場合，カレントディレクトリに`atom_babies.m5b`を生成します。
+
+```bash
+pipenv run python uiflow-custom-block-generator.py examples/atom_babies/atom_babies.json -t .
 ```
 
 注意：このスクリプトで生成された M5B ファイルは UiFlow Block Editor で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。

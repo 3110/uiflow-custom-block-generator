@@ -253,12 +253,13 @@ class BlockGenerator:
 
 
 class UiFlowCustomBlockGenerator:
-    def __init__(self, config, logger=None):
+    def __init__(self, config, target_dir=None, logger=None):
         self.logger = logger
         with config:
             self.config = json.load(config)
             validate_required_keys(self.config, BLOCK_SETTING_REQUIRED_KEYS, "setting")
-        self.base_dir = os.path.join(os.getcwd(), os.path.dirname(config.name))
+        self.base_dir = os.path.abspath(os.path.dirname(config.name))
+        self.target_dir = os.path.abspath(target_dir) if target_dir else self.base_dir
         self.filename = os.path.splitext(os.path.basename(config.name))[0]
         self.block_generator = BlockGenerator(self.base_dir, logger)
 
@@ -273,8 +274,9 @@ class UiFlowCustomBlockGenerator:
 
     def dump(self, data, encoding=DEFAULT_ENCODING):
         file_path = os.path.normpath(
-            os.path.join(self.base_dir, TEMPLATE_FILENAME.format(root=self.filename, ext=EXT_M5B))
+            os.path.join(self.target_dir, TEMPLATE_FILENAME.format(root=self.filename, ext=EXT_M5B))
         )
+        self.logger.debug("Write M5B: " + file_path)
         with open(file_path, "w", encoding=encoding) as f:
             json.dump(data, f, ensure_ascii=False)
 
@@ -289,10 +291,11 @@ if __name__ == '__main__':
         type=argparse.FileType("r", encoding=DEFAULT_ENCODING),
         help="カスタムブロック定義ファイル（JSON）",
     )
+    parser.add_argument("--target-dir", "-t", help="出力先ディレクトリ")
     parser.add_argument("--debug", "-d", action="store_true", help="デバッグ表示")
     args = parser.parse_args()
 
     log_level = logging.DEBUG if args.debug else logging.INFO
     logger = get_logger(__name__, log_level)
-    generator = UiFlowCustomBlockGenerator(args.config[0], logger)
+    generator = UiFlowCustomBlockGenerator(args.config[0], target_dir=args.target_dir, logger=logger)
     generator.generate()
