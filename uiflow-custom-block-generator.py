@@ -104,7 +104,7 @@ def get_logger(name, level):
     return logger
 
 def to_camel(s):
-    w = re.split("[\s_-]", s.lower())
+    w = re.split(r"[\s_-]", s.lower())
     return "".join([v if p == 0 else v.capitalize() for p, v in enumerate(w)])
 
 def validate_argument(arg, t):
@@ -114,7 +114,7 @@ def validate_argument(arg, t):
 
 def validate_required_keys(target, required_keys, where):
     for k in required_keys:
-        if not k in target.keys():
+        if k not in target.keys():
             raise MissingRequiredKey(k, where)
 
 class UiFlowCustomBlockGeneratorError(Exception):
