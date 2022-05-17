@@ -31,7 +31,7 @@ KEY_OUTPUT = "output"
 KEY_PARAMS = "params"
 KEY_PREVIOUS_STATEMENT = "previousStatement"
 KEY_NEXT_STATEMENT = "nextStatement"
-KEY_SPELL_CHECK = "type"
+KEY_SPELL_CHECK = "spellcheck"
 KEY_TEXT = "text"
 KEY_TYPE = "type"
 KEY_VALUE = VALUE
@@ -151,8 +151,7 @@ class StringParameterGenerator:
                 {
                     KEY_TYPE: FIELD_INPUT,
                     KEY_TEXT: "",
-                    KEY_SPELL_CHECK: false,
-                    KEY_NAME: str(name)
+                    KEY_SPELL_CHECK: False, KEY_NAME: str(name)
                 }
             ]
         }
