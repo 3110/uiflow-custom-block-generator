@@ -27,7 +27,7 @@ The structure of the JSON file for setting custom blocks is the following:
       "name": "init_atom_babies",
       "type": "execute",
       "params": [
-        { "name": "ATOM Babiesを初期化する", "type": "label" },
+        { "name": "Initialize ATOM Babies", "type": "label" },
         { "name": "_eye_color", "type": "variable" },
         { "name": "_cheek_color", "type": "variable" },
         { "name": "_background_color", "type": "variable" }
@@ -37,7 +37,7 @@ The structure of the JSON file for setting custom blocks is the following:
       "name": "rgb",
       "type": "value",
       "params": [
-        { "name": "色を指定する", "type": "label" },
+        { "name": "Specify the color", "type": "label" },
         { "name": "_r", "type": "number" },
         { "name": "_g", "type": "number" },
         { "name": "_b", "type": "number" }
