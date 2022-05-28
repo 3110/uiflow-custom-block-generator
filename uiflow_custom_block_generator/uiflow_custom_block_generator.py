@@ -279,23 +279,3 @@ class UiFlowCustomBlockGenerator:
         self.logger.debug("Write M5B: " + file_path)
         with open(file_path, "w", encoding=encoding) as f:
             json.dump(data, f, ensure_ascii=False)
-
-
-if __name__ == '__main__':
-    import argparse
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "config",
-        nargs=1,
-        type=argparse.FileType("r", encoding=DEFAULT_ENCODING),
-        help="カスタムブロック定義ファイル（JSON）",
-    )
-    parser.add_argument("--target-dir", "-t", help="出力先ディレクトリ")
-    parser.add_argument("--debug", "-d", action="store_true", help="デバッグ表示")
-    args = parser.parse_args()
-
-    log_level = logging.DEBUG if args.debug else logging.INFO
-    logger = get_logger(__name__, log_level)
-    generator = UiFlowCustomBlockGenerator(args.config[0], target_dir=args.target_dir, logger=logger)
-    generator.generate()
