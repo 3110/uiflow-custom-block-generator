@@ -11,7 +11,7 @@
 以下のコマンドを実行してインストールします。
 
 ```bash
-pip install https://github.com/3110/uiflow-custom-block-geneartor
+pip install https://github.com/3110/uiflow-custom-block-generator
 ```
 
 ## カスタムブロックの設定方法
