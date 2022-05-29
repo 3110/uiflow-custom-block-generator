@@ -1,52 +1,22 @@
-# UiFlow のカスタムブロックファイル（M5B ファイル）を生成する
+[日本語版](README_ja_JP.md)
 
-## 事前準備
+# Generating a custom block file for [UiFlow](https://flow.m5stack.com)
 
-私は 64 ビット版の Windows 11 で VS Code と Git Bash 環境を使って開発・動作確認をしています。
+This script generates a custom block file(the M5B file) from a JSON file for setting custom blocks, and [MicroPython](https://micropython.org/) files defined codes for custom blocks.
 
-### Windows 環境
+## Installation
 
-※事前に git For Windows をインストールしておいてください。
+I have developed and tested this script using VS Code, Git Bash, and Python v3.10.4 on the Windows 11 environment.
 
-pyenv をインストールします。
-
-```bash
-git clone https://github.com/pyenv-win/pyenv-win.git "$HOME/.pyenv"
-```
-
-`$HOME/.bashrc`に以下を追加しておきます。
+To install this script, execute the following:
 
 ```bash
-# pyenv
-export PYENV=$HOME/.pyenv/pyenv-win
-export PYENV_ROOT=$PYENV
-export PYENV_HOME=$PYENV
-export PATH="$PYENV/bin:$PYENV/shims:$PATH"
-# pipenv
-export PIPENV_VENV_IN_PROJECT=true
+pip install git+https://github.com/3110/uiflow-custom-block-geneartor
 ```
 
-Python と pipenv をインストールします。
+## Setting Custom Blocks
 
-```bash
-. ~/.bashrc
-pyenv install 3.10.4
-pyenv global 3.10.4
-pyenv rehash
-pip instal pipenv
-```
-
-ソースをクローンして必要なライブラリをインストールします。
-
-```bash
-git clone https://github.com/3110/uiflow-custom-block-geneartor
-cd uiflow-custom-block-generator
-pipenv install --dev
-```
-
-## 設定方法
-
-カスタムブロックの設定用 JSON は以下のような構造になっています。
+The structure of the JSON file for setting custom blocks is the following:
 
 ```json
 {
@@ -57,7 +27,7 @@ pipenv install --dev
       "name": "init_atom_babies",
       "type": "execute",
       "params": [
-        { "name": "ATOM Babiesを初期化する", "type": "label" },
+        { "name": "Initialize ATOM Babies", "type": "label" },
         { "name": "_eye_color", "type": "variable" },
         { "name": "_cheek_color", "type": "variable" },
         { "name": "_background_color", "type": "variable" }
@@ -67,7 +37,7 @@ pipenv install --dev
       "name": "rgb",
       "type": "value",
       "params": [
-        { "name": "色を指定する", "type": "label" },
+        { "name": "Specify the color", "type": "label" },
         { "name": "_r", "type": "number" },
         { "name": "_g", "type": "number" },
         { "name": "_b", "type": "number" }
@@ -77,49 +47,46 @@ pipenv install --dev
 }
 ```
 
-- `category`: UiFlow Block Maker の Namespace に対応。UiFlow で表示用ラベルになります。
-- `color`: ブロックの色を`#RRGGBB`で指定します。
-- `blocks`: カスタムブロックを定義します。ここに現れる順番でブロックが並びます。
+- `category`: Same as Namespace on the [UiFlow Block Maker](http://block-maker.m5stack.com/).
+- `color`: Specify the color of custom blocks with `#RRGGBB`.
+- `blocks`: Define custom blocks. They are arranged in the order in which they appear here.
 
-`blocks`で指定するカスタムブロックは以下のよう定義します。
+To define custom blocks, specify the following items in `blocks`:
 
-- `name`: ブロックのコードを読み込むためのファイル名。例えば`"name": "rgb"`の場合，設定用 JSON と同じディレクトリにある`rgb.py`を読み込みます。
-- `type`: ブロックの種類を指定します。値を返すブロック（`value`）と実行するブロック（`execute`）の 2 種類指定できます。
-- `params`: ブロックに渡す引数を定義します。ここに現れる順番通りに定義されます。
+- `name`: Filename of MicroPython codes for the custom block. The setting `"name": "rgb"` means `rgb.py` is read from the same directory as the JSON file.
+- `type`: Type of the custom block. You can specify the two types of blocks: `value`(the block returns a value) and `execute`(the block does not return any value).
+- `params`: Arguments for the custom block. They are arranged in the order in witch they appear here.
 
-`params`で指定する引数は以下のように定義します。
+To define arguments of the custom block, specify the following items in `params`.
 
-- `name`: 引数の名前。`type`が`label`の場合はブロックに表示される文字列
-- `type`: 引数の型。以下の 4 種類が用意されています。
-  - `label`: ブロックに表示するラベル。複数指定可能
-  - `string`: 文字列
-  - `number`: 数値
-  - `variable`: 変数。他のブロックとも接続できます。
+- `name`: The name of the argument. If `type` is `label`, this is the label shown on the block.
+- `type`: The type of the argument. There are four types:
+  - `label`: The label displayed on the block. Multiple specifications are allowed.
+  - `string`: String.
+  - `number`: Number.
+  - `variable`: Variable.
 
-`examples/atom_babies`に設定のサンプルを用意してあるので参考にしてください。
+Please refer to `examples/atom_babies` for the sample.
 
-## 実行方法
+## Execution
 
-以下を実行すると，設定用 JSON と同じディレクトリに`atom_babies.m5b`が生成されます。
+To generate `atom_babies.m5b` on the same directory as the JSON file, execute the following:
 
 ```bash
-pipenv run python uiflow-custom-block-generator.py examples/atom_babies/atom_babies.json
+python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json
 ```
 
-注意：このスクリプトで生成された M5B ファイルは UiFlow Block Editor で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。
+You can specify `--target_dir`(`-t`) option to change the output directory of the M5B file.
 
-## VSCode での注意点
+For example, `atom_babies.m5b` is generated on the current directory if you execute the following:
 
-- ブロックの引数を参照する`${}`が Flake8 で Invalid Syntax（E999）になるため，`.vscode/settings.json`で E999 を抑制しています。
-- MicroPython の`rgb`モジュールを使うコードには`# type: ignore # noqa: F821`（undefined name を無視する）を付けてください（Pylance と Flake8 の警告抑制）。
+```bash
+python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json -t .
+```
 
-## 参考
+**Caution**: [UiFlow Block Maker](http://block-maker.m5stack.com/) cannot read the M5B file generated from this script.
 
-- [UiFlow Block Maker](http://block-maker.m5stack.com/)
-- [Blockly](https://developers.google.com/blockly)
-  - [Create Custom Block](https://developers.google.com/blockly/guides/create-custom-blocks/overview)
-  - [Define Blocks](https://developers.google.com/blockly/guides/create-custom-blocks/define-blocks)
-- [git for Windows](https://gitforwindows.org/)
-- [pyenv](https://github.com/pyenv/pyenv)
-- [pyenv-win](https://github.com/pyenv-win/pyenv-win)
-- [pipenv](https://github.com/pypa/pipenv)
+## Notes on VS Code
+
+- Because Flake8 detects Invalid Syntax(E999) for `${}`(the reference to the argument of the custom block), the setting in `.vscode/settings.json` suppresses E999.
+- If you use `rgb` modules in the custom block codes, you have to specify `# type: ignore # noqa: F821` to ignore undefined name errors.

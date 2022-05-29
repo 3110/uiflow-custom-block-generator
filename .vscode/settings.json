@@ -26,13 +26,16 @@
     },
     "cSpell.words": [
         "blockly",
+        "colour",
         "jscode",
+        "levelname",
         "noqa",
-        "pylance",
-        "pyenv",
         "pipenv",
+        "pyenv",
+        "pylance",
+        "setuptools",
         "setx",
-        "venv",
-        "uiflow"
+        "uiflow",
+        "venv"
     ],
 }
