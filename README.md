@@ -84,7 +84,7 @@ For example, `atom_babies.m5b` is generated on the current directory if you exec
 python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json -t .
 ```
 
-**Caution**: UiFlow Block Maker cannot read the M5B file generated from this script.
+**Caution**: [UiFlow Block Maker](http://block-maker.m5stack.com/) cannot read the M5B file generated from this script.
 
 ## Notes on VS Code
 

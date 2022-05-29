@@ -82,7 +82,7 @@ python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json
 python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json -t .
 ```
 
-注意：このスクリプトで生成された M5B ファイルは UiFlow Block Editor で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。
+注意：このスクリプトで生成された M5B ファイルは [UiFlow Block Maker](http://block-maker.m5stack.com/) で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。
 
 ## VSCode での注意点
 
