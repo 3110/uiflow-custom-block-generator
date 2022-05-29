@@ -1,4 +1,4 @@
-[English](README.md)
+[In English](README.md)
 
 # [UiFlow](https://flow.m5stack.com) 用のカスタムブロックファイルを生成する
 
