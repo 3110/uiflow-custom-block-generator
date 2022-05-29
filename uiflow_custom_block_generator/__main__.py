@@ -4,16 +4,16 @@ import logging
 from .uiflow_custom_block_generator import DEFAULT_ENCODING, UiFlowCustomBlockGenerator, get_logger
 
 parser = argparse.ArgumentParser(
-    prog='python -m uiflow_custom_block_generator', description='Generating a custom block file for UiFlow'
+    prog="python -m uiflow_custom_block_generator", description="Generating a custom block file for UiFlow"
 )
 parser.add_argument(
     "config",
     nargs=1,
-    type=argparse.FileType("r", encoding=DEFAULT_ENCODING),
-    help="カスタムブロック定義ファイル（JSON）",
+    type=argparse.FileType("r", encoding="utf-8"),
+    help="Custom Block Definition File(JSON)",
 )
-parser.add_argument("--target-dir", "-t", help="出力先ディレクトリ")
-parser.add_argument("--debug", "-d", action="store_true", help="デバッグ表示")
+parser.add_argument("--target-dir", "-t", help="Target Directory")
+parser.add_argument("--debug", "-d", action="store_true", help="Debug Print")
 args = parser.parse_args()
 
 log_level = logging.DEBUG if args.debug else logging.INFO
