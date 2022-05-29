@@ -1,16 +1,12 @@
 import json
-import logging
 import os
 import re
-import sys
 
 DEFAULT_ENCODING = "utf-8"
 DEFAULT_PYTHON_CODE_INDENT = 4
 
 EXT_M5B = "m5b"
 EXT_PY = "py"
-
-LOG_FORMAT = "%(asctime)s [%(levelname)s] (%(filename)s:%(lineno)s | %(funcName)s) %(message)s"
 
 FIELD_LABEL = "field_label"
 FIELD_INPUT = "field_input"
@@ -94,17 +90,6 @@ TEMPLATE_BLOCK_CODE = {
 }};
 ''',
 }
-
-
-def get_logger(name, level):
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-    formatter = logging.Formatter(LOG_FORMAT)
-    sh = logging.StreamHandler(sys.stdout)
-    sh.setFormatter(formatter)
-    sh.setLevel(level)
-    logger.addHandler(sh)
-    return logger
 
 
 def to_camel(s):

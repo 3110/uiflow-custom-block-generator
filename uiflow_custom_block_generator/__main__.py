@@ -1,7 +1,22 @@
 import argparse
 import logging
+import sys
 
-from .uiflow_custom_block_generator import DEFAULT_ENCODING, UiFlowCustomBlockGenerator, get_logger
+from .uiflow_custom_block_generator import UiFlowCustomBlockGenerator
+
+LOG_FORMAT = "%(asctime)s [%(levelname)s] (%(filename)s:%(lineno)s | %(funcName)s) %(message)s"
+
+
+def get_logger(name, level):
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    formatter = logging.Formatter(LOG_FORMAT)
+    sh = logging.StreamHandler(sys.stdout)
+    sh.setFormatter(formatter)
+    sh.setLevel(level)
+    logger.addHandler(sh)
+    return logger
+
 
 parser = argparse.ArgumentParser(
     prog="python -m uiflow_custom_block_generator", description="Generating a custom block file for UiFlow"

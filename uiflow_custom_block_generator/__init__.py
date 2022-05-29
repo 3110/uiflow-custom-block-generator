@@ -1,3 +1,3 @@
-from uiflow_custom_block_generator.uiflow_custom_block_generator import *
+from uiflow_custom_block_generator.uiflow_custom_block_generator import UiFlowCustomBlockGenerator
 
 __all__ = ["UiFlowCustomBlockGenerator"]
