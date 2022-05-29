@@ -27,12 +27,13 @@
     "cSpell.words": [
         "blockly",
         "jscode",
+        "levelname",
         "noqa",
-        "pylance",
-        "pyenv",
         "pipenv",
+        "pyenv",
+        "pylance",
         "setx",
-        "venv",
-        "uiflow"
+        "uiflow",
+        "venv"
     ],
 }
