@@ -11,7 +11,7 @@ I have developed and tested this script using VS Code, Git Bash, and Python v3.1
 To install this script, execute the following:
 
 ```bash
-pip install git+https://github.com/3110/uiflow-custom-block-geneartor
+pip install git+https://github.com/3110/uiflow-custom-block-generator
 ```
 
 ## Setting Custom Blocks
