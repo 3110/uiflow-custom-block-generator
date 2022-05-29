@@ -1,17 +1,17 @@
 [日本語版](README_ja_JP.md)
 
-# Generating a custom block file for UiFlow
+# Generating a custom block file for [UiFlow](https://flow.m5stack.com)
 
 This script generates a custom block file(the M5B file) from a JSON file for setting custom blocks, and [MicroPython](https://micropython.org/) files defined codes for custom blocks.
 
 ## Installation
 
-I have developed this script using VS Code, Git Bash, and Python v3.10.4 on the Windows 11 environment.
+I have developed and tested this script using VS Code, Git Bash, and Python v3.10.4 on the Windows 11 environment.
 
 To install this script, execute the following:
 
 ```bash
-pip install https://github.com/3110/uiflow-custom-block-geneartor
+pip install git+https://github.com/3110/uiflow-custom-block-geneartor
 ```
 
 ## Setting Custom Blocks
@@ -47,24 +47,24 @@ The structure of the JSON file for setting custom blocks is the following:
 }
 ```
 
-- `category`: Namespace for the UiFlow Block Maker.
-- `color`: Specify the color of custom blocks with `#RRGGBB`
-- `blocks`: Define custom blocks. The custom blocks are arranged in the order in which they appear here.
+- `category`: Same as Namespace on the [UiFlow Block Maker](http://block-maker.m5stack.com/).
+- `color`: Specify the color of custom blocks with `#RRGGBB`.
+- `blocks`: Define custom blocks. They are arranged in the order in which they appear here.
 
-For defining custom blocks, specify the following items in `blocks`:
+To define custom blocks, specify the following items in `blocks`:
 
-- `name`: The filename for reading MicroPython codes. The setting `"name": "rgb"` means `rgb.py` is read from the same directory as the JSON file.
-- `type`: Type of the custom block. You can specify the two types of blocks: `value`(value is returned from the block) and `execute`(the block is executed).
-- `params`: Define the arguments for the block. The arguments are arranged in the order in witch they appear here.
+- `name`: Filename of MicroPython codes for the custom block. The setting `"name": "rgb"` means `rgb.py` is read from the same directory as the JSON file.
+- `type`: Type of the custom block. You can specify the two types of blocks: `value`(the block returns a value) and `execute`(the block does not return any value).
+- `params`: Arguments for the custom block. They are arranged in the order in witch they appear here.
 
-for defining arguments of the custom blocks, specify the following items in `params`.
+To define arguments of the custom block, specify the following items in `params`.
 
-- `name`: The name of argument. If `type` is `label`, this is the label shown on the block.
+- `name`: The name of the argument. If `type` is `label`, this is the label shown on the block.
 - `type`: The type of the argument. There are four types:
-  - `label`: The label displayed on the block. Multiple specifications allowed.
-  - `string`: String
-  - `number`: Number
-  - `variable`: Variable
+  - `label`: The label displayed on the block. Multiple specifications are allowed.
+  - `string`: String.
+  - `number`: Number.
+  - `variable`: Variable.
 
 Please refer to `examples/atom_babies` for the sample.
 
@@ -88,5 +88,5 @@ python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json -t
 
 ## Notes on VS Code
 
-- Because Flake8 detects Invalid Syntax(E999) for `${}`(the reference of the argument of the custom block), the setting in `.vscode/settings.json` suppresses E999.
-- If you use `rgb` modules in the custom block codes, you have to specify `# type: ignore # noqa: F821`(for ignoring undefined name error).
+- Because Flake8 detects Invalid Syntax(E999) for `${}`(the reference to the argument of the custom block), the setting in `.vscode/settings.json` suppresses E999.
+- If you use `rgb` modules in the custom block codes, you have to specify `# type: ignore # noqa: F821` to ignore undefined name errors.

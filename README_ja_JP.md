@@ -1,6 +1,6 @@
 [English](README.md)
 
-# UiFlow 用のカスタムブロックファイルを生成する
+# [UiFlow](https://flow.m5stack.com) 用のカスタムブロックファイルを生成する
 
 カスタムブロック設定 JSON ファイルと [MicroPython](https://micropython.org/) ファイルから [UiFlow](https://flow.m5stack.com/) 用のカスタムブロックファイル（M5B ファイル）を生成します。
 
@@ -11,7 +11,7 @@
 以下のコマンドを実行してインストールします。
 
 ```bash
-pip install https://github.com/3110/uiflow-custom-block-generator
+pip install git+https://github.com/3110/uiflow-custom-block-generator
 ```
 
 ## カスタムブロックの設定方法
@@ -47,7 +47,7 @@ pip install https://github.com/3110/uiflow-custom-block-generator
 }
 ```
 
-- `category`: UiFlow Block Maker の Namespace に対応します。
+- `category`: [UiFlow Block Maker](http://block-maker.m5stack.com/) の Namespace に対応します。
 - `color`: ブロックの色を`#RRGGBB`で指定します。
 - `blocks`: カスタムブロックを定義します。ここに現れる順番でブロックが並びます。
 
