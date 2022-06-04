@@ -86,7 +86,7 @@ TEMPLATE_BLOCK_CODE = {
 }};
 ''',
     BLOCK_TYPE_EXECUTE: '''window['Blockly'].Python['{block_name}'] = function(block) {{
-    {vars}return `{python_code}`
+    {vars}return `{python_code}\n\n`
 }};
 ''',
 }
@@ -210,7 +210,7 @@ class BlockGenerator:
         file_path = os.path.normpath(os.path.join(self.base_dir, TEMPLATE_FILENAME.format(root=name, ext=EXT_PY)))
         self.logger.debug(f"Block Code: {file_path}")
         with open(file_path, "r", encoding=encoding) as f:
-            return "\n".join([line.rstrip() for line in f.readlines()]) + "\n\n"
+            return "\n".join([line.rstrip() for line in f.readlines()])
 
     def generate(self, category, color, block):
         self.validate(block)
