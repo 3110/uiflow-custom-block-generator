@@ -73,13 +73,13 @@ pip install git+https://github.com/3110/uiflow-custom-block-generator
 以下を実行すると，設定用 JSON と同じディレクトリに`atom_babies.m5b`を生成します。
 
 ```bash
-python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json
+python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json
 ```
 
 `--target_dir`（`-t`）オプションで M5B ファイルの出力先ディレクトリを変更できます。以下の例の場合，カレントディレクトリに`atom_babies.m5b`を生成します。
 
 ```bash
-python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json -t .
+python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json -t .
 ```
 
 注意：このスクリプトで生成された M5B ファイルは [UiFlow Block Maker](http://block-maker.m5stack.com/) で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。

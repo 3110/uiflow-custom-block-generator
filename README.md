@@ -73,7 +73,7 @@ Please refer to `examples/atom_babies` for the sample.
 To generate `atom_babies.m5b` on the same directory as the JSON file, execute the following:
 
 ```bash
-python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json
+python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json
 ```
 
 You can specify `--target_dir`(`-t`) option to change the output directory of the M5B file.
@@ -81,7 +81,7 @@ You can specify `--target_dir`(`-t`) option to change the output directory of th
 For example, `atom_babies.m5b` is generated on the current directory if you execute the following:
 
 ```bash
-python -m uiflow-custom-block-generator examples/atom_babies/atom_babies.json -t .
+python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json -t .
 ```
 
 **Caution**: [UiFlow Block Maker](http://block-maker.m5stack.com/) cannot read the M5B file generated from this script.
