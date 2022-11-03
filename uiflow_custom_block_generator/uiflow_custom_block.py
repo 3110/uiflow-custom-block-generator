@@ -2,7 +2,7 @@ import re
 
 DEFAULT_ENCODING = "utf-8"
 DEFAULT_PYTHON_CODE_INDENT = 4
-DEFAULT_JSON_INDENT = 4
+DEFAULT_JSON_INDENT = 2
 
 KEY_ARGS = "args"
 KEY_BLOCKS = "blocks"
@@ -70,5 +70,7 @@ def to_camel(s):
 
 def to_snake(s):
     return '_'.join(
-        re.sub('([A-Z0-9]+[a-z]+)', r' \1', re.sub('([A-Z0-9]+)', r' \1', s.replace('-', ' '))).split()
+        re.sub(
+            '([A-Z0-9]+[a-z]+)', r' \1', re.sub('([A-Z0-9]+)', r' \1', s.replace('-', ' ').replace('_', ' '))
+        ).split()
     ).lower()
