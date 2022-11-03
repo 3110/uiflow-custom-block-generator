@@ -14,9 +14,9 @@ class UiFlowCustomBlockParseError(Exception):
 class ParameterParser:
     PARAM_TYPES = {
         FIELD_LABEL: BLOCK_PARAM_TYPE_LABEL,
-        FIELD_INPUT: BLOCK_PARAM_TYPE_VARIABLE,
+        FIELD_INPUT: BLOCK_PARAM_TYPE_STRING,
         FIELD_NUMBER: BLOCK_PARAM_TYPE_NUMBER,
-        INPUT_VALUE: BLOCK_PARAM_TYPE_STRING,
+        INPUT_VALUE: BLOCK_PARAM_TYPE_VARIABLE,
     }
 
     def __init__(self, logger=None):
