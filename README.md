@@ -4,6 +4,8 @@
 
 This script generates a custom block file(the M5B file) from a JSON file for setting custom blocks, and [MicroPython](https://micropython.org/) files defined codes for custom blocks.
 
+You can also generate the JSON and MicroPython files from an existing M5B file.
+
 ## Installation
 
 I have developed and tested this script using VS Code, Git Bash, and Python v3.10.4 on the Windows 11 environment.
@@ -70,6 +72,8 @@ Please refer to `examples/atom_babies` for the sample.
 
 ## Execution
 
+### Generating the M5B file from the JSON file and MicroPython files
+
 To generate `atom_babies.m5b` on the same directory as the JSON file, execute the following:
 
 ```bash
@@ -85,6 +89,20 @@ python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json -t
 ```
 
 **Caution**: [UiFlow Block Maker](http://block-maker.m5stack.com/) cannot read the M5B file generated from this script.
+
+### Generating the JSON file and MicroPython files from the M5B file
+
+The following command creates the `atom_babies` directory in the same directory as the M5B file and generates `atom_babies.json` and the MicroPython files in the `atom_babies` directory.
+
+```bash
+python -m uiflow_custom_block_generator example/atom_babies/atom_babies.m5b
+```
+
+You can specify `--target_dir`(`-t`) option to change the output directory of the JSON file and MicroPython files. The following command creates `atom_babies` directory in the current directory.
+
+```bash
+python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.m5b -t .
+```
 
 ## Notes on VS Code
 

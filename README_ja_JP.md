@@ -4,6 +4,8 @@
 
 カスタムブロック設定 JSON ファイルと [MicroPython](https://micropython.org/) ファイルから [UiFlow](https://flow.m5stack.com/) 用のカスタムブロックファイル（M5B ファイル）を生成します。
 
+また，既存の M5B ファイルからカスタムブロック設定 JSON ファイルと[MicroPython](https://micropython.org/) ファイルを生成することもできます。
+
 ## インストール
 
 私は 64 ビット版の Windows 11 上で VS Code，Git Bash，Python v3.10.4 を使って開発・動作確認をしています。
@@ -70,6 +72,8 @@ pip install git+https://github.com/3110/uiflow-custom-block-generator
 
 ## 実行方法
 
+### 設定用 JSON ファイルと MicroPython コードから M5B ファイルを生成
+
 以下を実行すると，設定用 JSON と同じディレクトリに`atom_babies.m5b`を生成します。
 
 ```bash
@@ -83,6 +87,20 @@ python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json -t
 ```
 
 注意：このスクリプトで生成された M5B ファイルは [UiFlow Block Maker](http://block-maker.m5stack.com/) で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。
+
+### M5B ファイルから JSON ファイルと MicroPython コードを生成
+
+以下を実行すると，M5B ファイルと同じディレクトリに`atom_babies`ディレクトリを作成し，`atom_babies.json`と MicroPython ファイルを生成します。
+
+```bash
+python -m uiflow_custom_block_generator example/atom_babies/atom_babies.m5b
+```
+
+`--target_dir`（`-t`）オプションで出力先ディレクトリを変更できます。以下の例の場合，カレントディレクトリに`atom_babies`ディレクトリを生成します。
+
+```bash
+python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.m5b -t .
+```
 
 ## VSCode での注意点
 
