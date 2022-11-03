@@ -63,7 +63,7 @@ class BlockParser:
         codes = '\n'.join(self.extractCode(category, name, lines))
         start = codes.find('`') + 1
         end = codes.rfind('`')
-        return codes[start:end].split('\n')
+        return codes[start:end].split('\n')[:-1]
 
     def extractJSON(self, category, name, lines):
         header = JSON_HEADER_FORMAT.format(category=category, name=name)
