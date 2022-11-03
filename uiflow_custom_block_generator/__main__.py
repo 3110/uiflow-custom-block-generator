@@ -49,7 +49,7 @@ if UiFlowCustomBlockParser.isCustomBlockFile(args.target_file[0]):
         f.write(json.dumps(setting, indent=DEFAULT_JSON_INDENT, ensure_ascii=False))
     for name, code in codes.items():
         code_name = name + "." + EXT_PY
-        with open(os.path.join(target_dir, code_name), mode='w', encoding='UTF-8') as f:
+        with open(os.path.join(target_dir, to_snake(code_name)), mode='w', encoding='UTF-8') as f:
             f.write('\n'.join(code))
 else:
     generator = UiFlowCustomBlockGenerator(args.target_file[0], target_dir=args.target_dir, logger=logger)
