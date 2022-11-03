@@ -45,7 +45,7 @@ TEMPLATE_BLOCK_DEFINITION = '''window['Blockly'].Blocks['{block_name}'] = {{
 
 TEMPLATE_BLOCK_CODE = {
     BLOCK_TYPE_VALUE: '''window['Blockly'].Python['{block_name}'] = function(block) {{
-    {vars}return [`{python_code}`, Blockly.Python.ORDER_CONDITIONAL]
+    {vars}return [`{python_code}\n\n`, Blockly.Python.ORDER_CONDITIONAL]
 }};
 ''',
     BLOCK_TYPE_EXECUTE: '''window['Blockly'].Python['{block_name}'] = function(block) {{
