@@ -1,3 +1,4 @@
 from uiflow_custom_block_generator.uiflow_custom_block_generator import UiFlowCustomBlockGenerator
+from uiflow_custom_block_generator.uiflow_custom_block_parser import UiFlowCustomBlockParser
 
-__all__ = ["UiFlowCustomBlockGenerator"]
+__all__ = ["UiFlowCustomBlockGenerator", "UiFlowCustomBlockParser"]

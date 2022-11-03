@@ -1,53 +1,16 @@
 import json
 import os
-import re
 
-DEFAULT_ENCODING = "utf-8"
-DEFAULT_PYTHON_CODE_INDENT = 4
+from .uiflow_custom_block import *
 
-EXT_M5B = "m5b"
-EXT_PY = "py"
-
-FIELD_LABEL = "field_label"
-FIELD_INPUT = "field_input"
-FIELD_NUMBER = "field_number"
-INPUT_VALUE = "input_value"
-VALUE = "value"
-
-KEY_ARGS = "args"
-KEY_BLOCKS = "blocks"
-KEY_CATEGORY = "category"
-KEY_CODE = "code"
-KEY_COLOR = "color"
 KEY_COLOUR = "colour"  # for m5b
-KEY_JSCODE = "jscode"
 KEY_MESSAGE = "message"
-KEY_NAME = "name"
 KEY_OUTPUT = "output"
-KEY_PARAMS = "params"
 KEY_PREVIOUS_STATEMENT = "previousStatement"
 KEY_NEXT_STATEMENT = "nextStatement"
 KEY_SPELL_CHECK = "spellcheck"
-KEY_TEXT = "text"
-KEY_TYPE = "type"
 KEY_VALUE = VALUE
 
-BLOCK_PARAM_TYPE_LABEL = "label"
-BLOCK_PARAM_TYPE_STRING = "string"
-BLOCK_PARAM_TYPE_NUMBER = "number"
-BLOCK_PARAM_TYPE_VARIABLE = "variable"
-
-BLOCK_PARAM_TYPES = [
-    BLOCK_PARAM_TYPE_LABEL,
-    BLOCK_PARAM_TYPE_STRING,
-    BLOCK_PARAM_TYPE_NUMBER,
-    BLOCK_PARAM_TYPE_VARIABLE,
-]
-
-BLOCK_TYPE_VALUE = VALUE
-BLOCK_TYPE_EXECUTE = "execute"
-
-BLOCK_NAME_FORMAT = "__{category}_{name}"
 BLOCK_SETTING_REQUIRED_KEYS = [KEY_CATEGORY, KEY_COLOR, KEY_BLOCKS]
 BLOCK_REQUIRED_KEYS = [KEY_NAME, KEY_TYPE]
 BLOCK_PARAM_REQUIRED_KEYS = [KEY_NAME, KEY_TYPE]
@@ -82,7 +45,7 @@ TEMPLATE_BLOCK_DEFINITION = '''window['Blockly'].Blocks['{block_name}'] = {{
 
 TEMPLATE_BLOCK_CODE = {
     BLOCK_TYPE_VALUE: '''window['Blockly'].Python['{block_name}'] = function(block) {{
-    {vars}return [`{python_code}`, Blockly.Python.ORDER_CONDITIONAL]
+    {vars}return [`{python_code}\n\n`, Blockly.Python.ORDER_CONDITIONAL]
 }};
 ''',
     BLOCK_TYPE_EXECUTE: '''window['Blockly'].Python['{block_name}'] = function(block) {{
@@ -92,29 +55,8 @@ TEMPLATE_BLOCK_CODE = {
 }
 
 
-def to_camel(s):
-    w = re.split(r"[\s_-]", s.lower())
-    return "".join([v if p == 0 else v.capitalize() for p, v in enumerate(w)])
-
-
-def validate_argument(arg, t):
-    if not isinstance(arg, t):
-        raise UiFlowCustomBlockGeneratorError("Illegal Argument: expected: {}, actual: {}".format(type(t), type(arg)))
-
-
-def validate_required_keys(target, required_keys, where):
-    for k in required_keys:
-        if k not in target.keys():
-            raise MissingRequiredKey(k, where)
-
-
 class UiFlowCustomBlockGeneratorError(Exception):
     pass
-
-
-class MissingRequiredKey(UiFlowCustomBlockGeneratorError):
-    def __init__(self, key, where):
-        super().__init__(f"{key} in {where}")
 
 
 class LabelParameterGenerator:
@@ -238,9 +180,9 @@ class BlockGenerator:
 
 
 class UiFlowCustomBlockGenerator:
-    def __init__(self, config, target_dir=None, logger=None):
+    def __init__(self, config_file, target_dir=None, logger=None):
         self.logger = logger
-        with config:
+        with open(config_file, 'r', encoding="UTF-8") as config:
             self.config = json.load(config)
             validate_required_keys(self.config, BLOCK_SETTING_REQUIRED_KEYS, "setting")
         self.base_dir = os.path.abspath(os.path.dirname(config.name))
