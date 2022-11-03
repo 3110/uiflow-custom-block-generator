@@ -47,6 +47,7 @@ if UiFlowCustomBlockParser.isCustomBlockFile(args.target_file[0]):
     os.makedirs(target_dir, exist_ok=True)
     with open(os.path.join(target_dir, setting_name), mode='w', encoding='UTF-8') as f:
         f.write(json.dumps(setting, indent=DEFAULT_JSON_INDENT, ensure_ascii=False))
+        f.write('\n')
     for name, code in codes.items():
         code_name = name + "." + EXT_PY
         with open(os.path.join(target_dir, to_snake(code_name)), mode='w', encoding='UTF-8') as f:
