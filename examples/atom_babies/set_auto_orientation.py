@@ -1,0 +1,1 @@
+_ab_set_auto_orientation(${_is_auto_orientation})

@@ -1,0 +1,1 @@
+_ab_set_char(${_char}, ${_color}, _ab_get_orientation())
