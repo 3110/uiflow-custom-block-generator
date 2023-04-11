@@ -1,0 +1,1 @@
+_ab_scroll_text(${_text}, ${_color}, ${_interval_ms})

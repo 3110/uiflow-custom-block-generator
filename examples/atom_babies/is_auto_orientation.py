@@ -1,0 +1,1 @@
+_ab_is_auto_orientation()
