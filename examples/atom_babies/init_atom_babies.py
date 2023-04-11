@@ -72,7 +72,7 @@ _ab_const = {
     'DEFAULT_BLINK_INTERVAL_FUNCTION': '_ab_get_blink_interval',
 }
 _ab_const['CHAR_TYPES'] = [
-    _ab_const['ALPHABETS'], _ab_const['SYMBOLS'], _ab_const['DIGITS']
+    _ab_const['ALPHABETS'], _ab_const['SYMBOLS'], {str(d): v for d, v in enumerate(_ab_const['DIGITS'])}
 ]
 
 _ab_lock = _ab_t.allocate_lock()
