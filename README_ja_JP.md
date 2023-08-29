@@ -1,8 +1,8 @@
 [In English](README.md)
 
-# [UiFlow](https://flow.m5stack.com) 用のカスタムブロックファイルを生成する
+# [UIFlow](https://flow.m5stack.com) 用のカスタムブロックファイルを生成する
 
-カスタムブロック設定 JSON ファイルと [MicroPython](https://micropython.org/) ファイルから [UiFlow](https://flow.m5stack.com/) 用のカスタムブロックファイル（M5B ファイル）を生成します。
+カスタムブロック設定 JSON ファイルと [MicroPython](https://micropython.org/) ファイルから [UIFlow](https://flow.m5stack.com/) 用のカスタムブロックファイル（M5B ファイル）を生成します。
 
 また，既存の M5B ファイルからカスタムブロック設定 JSON ファイルと[MicroPython](https://micropython.org/) ファイルを生成することもできます。
 
@@ -49,7 +49,7 @@ pip install git+https://github.com/3110/uiflow-custom-block-generator
 }
 ```
 
-- `category`: [UiFlow Block Maker](http://block-maker.m5stack.com/) の Namespace に対応します。
+- `category`: [UIFlow Block Maker](http://block-maker.m5stack.com/) の Namespace に対応します。
 - `color`: ブロックの色を`#RRGGBB`で指定します。
 - `blocks`: カスタムブロックを定義します。ここに現れる順番でブロックが並びます。
 
@@ -86,7 +86,7 @@ python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json
 python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json -t .
 ```
 
-注意：このスクリプトで生成された M5B ファイルは [UiFlow Block Maker](http://block-maker.m5stack.com/) で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。
+注意：このスクリプトで生成された M5B ファイルは [UIFlow Block Maker](http://block-maker.m5stack.com/) で正常に読み込めません（長い Python コードが途中で切られてしまう問題があります）。
 
 ### M5B ファイルから JSON ファイルと MicroPython コードを生成
 
