@@ -1,7 +1,16 @@
 import json
 import os
 
-from .uiflow_custom_block import *
+from .uiflow_custom_block import (BLOCK_NAME_FORMAT, BLOCK_PARAM_TYPE_LABEL,
+                                  BLOCK_PARAM_TYPE_NUMBER,
+                                  BLOCK_PARAM_TYPE_STRING,
+                                  BLOCK_PARAM_TYPE_VARIABLE,
+                                  BLOCK_TYPE_EXECUTE, BLOCK_TYPE_VALUE,
+                                  DEFAULT_JSON_INDENT, EXT_M5B, FIELD_INPUT,
+                                  FIELD_LABEL, FIELD_NUMBER, INPUT_VALUE,
+                                  KEY_ARGS, KEY_BLOCKS, KEY_CATEGORY,
+                                  KEY_COLOR, KEY_JSCODE, KEY_NAME, KEY_PARAMS,
+                                  KEY_TEXT, KEY_TYPE, to_snake)
 
 JSON_HEADER_FORMAT = 'var %s_json = {{' % BLOCK_NAME_FORMAT
 CODE_HEADER_FORMAT = "window['Blockly'].Python['%s'] = function(block) {{" % BLOCK_NAME_FORMAT

@@ -16,13 +16,10 @@
         "--skip-string-normalization"
     ],
     "[python]": {
-        "editor.defaultFormatter": null,
+        "editor.defaultFormatter": "ms-python.black-formatter",
         "editor.formatOnSave": true,
         "editor.formatOnPaste": false,
         "editor.formatOnSaveMode": "file",
-        "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        },
     },
     "cSpell.words": [
         "blockly",
@@ -33,9 +30,14 @@
         "pipenv",
         "pyenv",
         "pylance",
+        "RRGGBB",
         "setuptools",
         "setx",
         "uiflow",
         "venv"
     ],
+    "markdownlint.config": {
+        "MD033": false,
+        "MD041": false,
+    }
 }

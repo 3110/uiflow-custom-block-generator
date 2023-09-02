@@ -1,7 +1,35 @@
 import json
 import os
 
-from .uiflow_custom_block import *
+from .uiflow_custom_block import (
+    BLOCK_NAME_FORMAT,
+    BLOCK_PARAM_TYPES,
+    BLOCK_PARAM_TYPE_LABEL,
+    BLOCK_PARAM_TYPE_NUMBER,
+    BLOCK_PARAM_TYPE_STRING,
+    BLOCK_PARAM_TYPE_VARIABLE,
+    BLOCK_TYPE_EXECUTE,
+    BLOCK_TYPE_VALUE,
+    DEFAULT_ENCODING,
+    DEFAULT_PYTHON_CODE_INDENT,
+    EXT_M5B,
+    EXT_PY,
+    FIELD_INPUT,
+    FIELD_LABEL,
+    FIELD_NUMBER,
+    INPUT_VALUE,
+    KEY_ARGS,
+    KEY_BLOCKS,
+    KEY_CATEGORY,
+    KEY_COLOR,
+    KEY_JSCODE,
+    KEY_NAME,
+    KEY_PARAMS,
+    KEY_TEXT,
+    KEY_TYPE,
+    VALUE,
+    to_camel,
+)
 
 KEY_COLOUR = "colour"  # for m5b
 KEY_MESSAGE = "message"
@@ -57,6 +85,11 @@ TEMPLATE_BLOCK_CODE = {
 
 class UIFlowCustomBlockGeneratorError(Exception):
     pass
+
+
+class MissingRequiredKey(Exception):
+    def __init__(self, key, where):
+        super().__init__(f"{key} in {where}")
 
 
 class LabelParameterGenerator:
@@ -206,3 +239,14 @@ class UIFlowCustomBlockGenerator:
         self.logger.debug("Write M5B: " + file_path)
         with open(file_path, "w", encoding=encoding) as f:
             json.dump(data, f, ensure_ascii=False)
+
+
+def validate_argument(arg, t):
+    if not isinstance(arg, t):
+        raise UIFlowCustomBlockGeneratorError("Illegal Argument: expected: {}, actual: {}".format(type(t), type(arg)))
+
+
+def validate_required_keys(target, required_keys, where):
+    for k in required_keys:
+        if k not in target.keys():
+            raise MissingRequiredKey(k, where)

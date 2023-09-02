@@ -4,7 +4,8 @@ import logging
 import os
 import sys
 
-from .uiflow_custom_block import *
+from .uiflow_custom_block import (DEFAULT_JSON_INDENT, EXT_JSON, EXT_PY,
+                                  to_snake)
 from .uiflow_custom_block_generator import UIFlowCustomBlockGenerator
 from .uiflow_custom_block_parser import UIFlowCustomBlockParser
 
