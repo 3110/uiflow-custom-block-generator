@@ -54,7 +54,7 @@ class MissingRequiredKey(Exception):
 
 def validate_argument(arg, t):
     if not isinstance(arg, t):
-        raise UiFlowCustomBlockGeneratorError("Illegal Argument: expected: {}, actual: {}".format(type(t), type(arg)))
+        raise UIFlowCustomBlockGeneratorError("Illegal Argument: expected: {}, actual: {}".format(type(t), type(arg)))
 
 
 def validate_required_keys(target, required_keys, where):

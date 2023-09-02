@@ -55,7 +55,7 @@ TEMPLATE_BLOCK_CODE = {
 }
 
 
-class UiFlowCustomBlockGeneratorError(Exception):
+class UIFlowCustomBlockGeneratorError(Exception):
     pass
 
 
@@ -137,7 +137,7 @@ class BlockGenerator:
     def validate_parameter_types(self, block_name, params):
         for pos, p in enumerate(params):
             if not p[KEY_TYPE] in BLOCK_PARAM_TYPES:
-                raise UiFlowCustomBlockGeneratorError(
+                raise UIFlowCustomBlockGeneratorError(
                     "Illegal Parameter Type: {type} (#{pos} parameter in the block \"{name}\")".format(
                         type=p[KEY_TYPE], pos=pos + 1, name=block_name
                     )
@@ -179,7 +179,7 @@ class BlockGenerator:
         return result
 
 
-class UiFlowCustomBlockGenerator:
+class UIFlowCustomBlockGenerator:
     def __init__(self, config_file, target_dir=None, logger=None):
         self.logger = logger
         with open(config_file, 'r', encoding="UTF-8") as config:

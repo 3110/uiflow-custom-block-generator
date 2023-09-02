@@ -7,7 +7,7 @@ JSON_HEADER_FORMAT = 'var %s_json = {{' % BLOCK_NAME_FORMAT
 CODE_HEADER_FORMAT = "window['Blockly'].Python['%s'] = function(block) {{" % BLOCK_NAME_FORMAT
 
 
-class UiFlowCustomBlockParseError(Exception):
+class UIFlowCustomBlockParseError(Exception):
     pass
 
 
@@ -52,7 +52,7 @@ class BlockParser:
                 if line.startswith(header):
                     inRegion = True
         if len(region) == 0:
-            raise UiFlowCustomBlockParseError("No header found: %s", header)
+            raise UIFlowCustomBlockParseError("No header found: %s", header)
         return region
 
     def extractCode(self, category, name, lines):
@@ -81,7 +81,7 @@ class BlockParser:
             elif r.startswith('return ['):
                 return BLOCK_TYPE_VALUE
         else:
-            raise UiFlowCustomBlockParseError("Unknown Block Type: category = %s, name = %s" % (category, name))
+            raise UIFlowCustomBlockParseError("Unknown Block Type: category = %s, name = %s" % (category, name))
 
     def parse(self, category, name, data):
         json_data = self.extractJSON(category, name, data)
@@ -90,7 +90,7 @@ class BlockParser:
         return {KEY_NAME: to_snake(name), KEY_TYPE: block_type, KEY_PARAMS: params}
 
 
-class UiFlowCustomBlockParser:
+class UIFlowCustomBlockParser:
     @classmethod
     def isCustomBlockFile(cls, filepath):
         return os.path.splitext(filepath)[1] == '.' + EXT_M5B
