@@ -1,6 +1,6 @@
 [日本語版](README_ja_JP.md)
 
-# Generating a custom block file for [UiFlow](https://flow.m5stack.com)
+# Generating a custom block file for [UIFlow](https://flow.m5stack.com)
 
 This script generates a custom block file(the M5B file) from a JSON file for setting custom blocks, and [MicroPython](https://micropython.org/) files defined codes for custom blocks.
 
@@ -49,7 +49,7 @@ The structure of the JSON file for setting custom blocks is the following:
 }
 ```
 
-- `category`: Same as Namespace on the [UiFlow Block Maker](http://block-maker.m5stack.com/).
+- `category`: Same as Namespace on the [UIFlow Block Maker](http://block-maker.m5stack.com/).
 - `color`: Specify the color of custom blocks with `#RRGGBB`.
 - `blocks`: Define custom blocks. They are arranged in the order in which they appear here.
 
@@ -88,7 +88,7 @@ For example, `atom_babies.m5b` is generated on the current directory if you exec
 python -m uiflow_custom_block_generator examples/atom_babies/atom_babies.json -t .
 ```
 
-**Caution**: [UiFlow Block Maker](http://block-maker.m5stack.com/) cannot read the M5B file generated from this script.
+**Caution**: [UIFlow Block Maker](http://block-maker.m5stack.com/) cannot read the M5B file generated from this script.
 
 ### Generating the JSON file and MicroPython files from the M5B file
 

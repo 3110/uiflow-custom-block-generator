@@ -4,9 +4,10 @@ import logging
 import os
 import sys
 
-from .uiflow_custom_block import *
-from .uiflow_custom_block_generator import UiFlowCustomBlockGenerator
-from .uiflow_custom_block_parser import UiFlowCustomBlockParser
+from .uiflow_custom_block import (DEFAULT_JSON_INDENT, EXT_JSON, EXT_PY,
+                                  to_snake)
+from .uiflow_custom_block_generator import UIFlowCustomBlockGenerator
+from .uiflow_custom_block_parser import UIFlowCustomBlockParser
 
 LOG_FORMAT = "%(asctime)s [%(levelname)s] (%(filename)s:%(lineno)s | %(funcName)s) %(message)s"
 
@@ -23,7 +24,7 @@ def get_logger(name, level):
 
 
 parser = argparse.ArgumentParser(
-    prog="python -m uiflow_custom_block_generator", description="Generating a custom block file for UiFlow"
+    prog="python -m uiflow_custom_block_generator", description="Generating a custom block file for UIFlow"
 )
 parser.add_argument(
     "target_file",
@@ -37,9 +38,9 @@ args = parser.parse_args()
 log_level = logging.DEBUG if args.debug else logging.INFO
 logger = get_logger(__name__, log_level)
 
-if UiFlowCustomBlockParser.isCustomBlockFile(args.target_file[0]):
+if UIFlowCustomBlockParser.isCustomBlockFile(args.target_file[0]):
     m5b_file = args.target_file[0]
-    parser = UiFlowCustomBlockParser(logger)
+    parser = UIFlowCustomBlockParser(logger)
     target_dir, setting, codes = parser.parse(m5b_file, target_dir=args.target_dir)
 
     setting_name = to_snake(os.path.splitext(os.path.basename(m5b_file))[0]) + "." + EXT_JSON
@@ -54,5 +55,5 @@ if UiFlowCustomBlockParser.isCustomBlockFile(args.target_file[0]):
         with open(os.path.join(target_dir, to_snake(code_name)), mode='w', encoding='UTF-8') as f:
             f.write('\n'.join(code))
 else:
-    generator = UiFlowCustomBlockGenerator(args.target_file[0], target_dir=args.target_dir, logger=logger)
+    generator = UIFlowCustomBlockGenerator(args.target_file[0], target_dir=args.target_dir, logger=logger)
     generator.generate()

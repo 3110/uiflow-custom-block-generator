@@ -47,22 +47,6 @@ EXT_PY = "py"
 EXT_JSON = "json"
 
 
-class MissingRequiredKey(Exception):
-    def __init__(self, key, where):
-        super().__init__(f"{key} in {where}")
-
-
-def validate_argument(arg, t):
-    if not isinstance(arg, t):
-        raise UiFlowCustomBlockGeneratorError("Illegal Argument: expected: {}, actual: {}".format(type(t), type(arg)))
-
-
-def validate_required_keys(target, required_keys, where):
-    for k in required_keys:
-        if k not in target.keys():
-            raise MissingRequiredKey(k, where)
-
-
 def to_camel(s):
     w = re.split(r"[\s_-]", s.lower())
     return "".join([v if p == 0 else v.capitalize() for p, v in enumerate(w)])
