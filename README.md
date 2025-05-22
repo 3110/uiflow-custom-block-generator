@@ -1,5 +1,12 @@
 [日本語版](README_ja_JP.md)
 
+<p align="center">
+  <a href="https://speakerdeck.com/3110/atom-babiestouiflow-custom-block-generatortosi" target="_blank">
+  <img src="https://files.speakerdeck.com/presentations/ef509fde25924b86b992a7a947861d0c/slide_0.jpg" alt="ATOM BabiesとUIFlow Custom Block Generatorと私" width="600"/></a>
+  <br>
+  <caption>"ATOM Babies, UIFlow Custom Block Generator, and Me" (In Japanese)<br>(My Lightning Talk at <a href="https://m5stack.connpass.com/event/297120/">M5STACK JAPAN TOUR 2023 AUTUMN Tokyo Meetup</a>)</caption>
+  </p>
+
 # Generating a custom block file for [UIFlow](https://flow.m5stack.com)
 
 This script generates a custom block file(the M5B file) from a JSON file for setting custom blocks, and [MicroPython](https://micropython.org/) files defined codes for custom blocks.
